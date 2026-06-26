@@ -17,6 +17,7 @@ int* ptr3{ &x }; // a pointer initialized with the address of variable x
 */
 
 #include <iostream>
+#include <cctype>
 
 using namespace std;
 
@@ -200,7 +201,7 @@ int* find_min_ptr(int arr[], int size){
 }
 
 // 13
-void array_traversal(){
+void matrix(){
     /*Declare a small two-dimensional integer array, for example, a 3×3 array initialized 
     with values. Write a program that uses an integer pointer to access and print all 
     elements of the 2D array, treating it as a contiguous block of memory. You must use 
@@ -222,6 +223,37 @@ void array_traversal(){
     for (int k=0; k < 9; k++){
         cout << *(ptr2 + k) << " ";
     }
+}
+
+// 15
+void compare_arrays(int array1[], int array2[], int size1, int size2){
+    /*Write a function named compare_arrays that takes two integer arrays and their size
+     as input. The function should use pointers to check if the two arrays are identical 
+     (i.e., they have the same size and the same elements in the same order). Return true 
+     if they are identical, and false otherwise.*/
+    int* ptr1 = array1;
+    int* ptr2 = array2;
+    cout << "\n";
+
+    if (size1 != size2){
+        cout << "Not identical.";
+        return;
+    }
+
+    for (int i=0; i < size1; i++){
+        if ( *(ptr1 + i) != *(ptr2 + i)){
+            cout << "Not identical."; return;
+        }
+    }
+    cout << "Arrays are identical.";
+
+    /* In main :
+    int a1[] = {1, 2, 3, 4};
+    int a2[] = {1, 2, 3, 4};
+    int a3[] = {1, 2, 9, 4};
+    compare_arrays(a1, a2, 4, 4);
+    compare_arrays(a1, a3, 4, 4);
+    */
 }
 
 // 16
@@ -260,8 +292,64 @@ void swap(int* a, int* b){
    cout << "\nAfter swap : a = " << *a << ", b = " << *b; // 
 }
 
+// 18
+void to_uppercase(){
+    /*Write a function named to_uppercase that takes a character pointer (char*) 
+    representing a C-style string. The function must iterate through the string using 
+    pointer arithmetic and modify the characters in place to convert all lowercase 
+    letters to uppercase. Use the standard library function toupper() from <cctype>.*/
+
+    char text[] = "hello pointers exercise";
+    cout << text << "\n";
+    char* ptr = text;
+    const int size = sizeof(text)/sizeof(char);
+
+    for(int i = 0; i < size - 1; i++){
+        *(ptr + i) = toupper(*(ptr+i));
+    }
+    cout << text;
+}
+
+// 19
+int add(int a, int b){
+    /*Write a simple function add that takes two integers and returns their sum. In 
+    main, declare a function pointer that can point to a function with this signature. 
+    Assign the add function to this pointer and then call the add function using the 
+    function pointer.*/
+    return (a + b);
+
+    /* in main :
+    int (*fctptr)(int, int); // initialise un pointeur sur une fonction qui prend en paramètres 2 int et qui retourne un int
+    fctptr = add; // pointe sur l'adresse de la fonction add
+    // int (*fctptr)(int, int){&add}; // fonctionne aussi
+    if (fctptr){ // vérifie que fcptr n'est pas un nullptr
+        int result = fctptr(3,4);
+        cout << result;
+    }
+*/
+}
+
+// 20
+int multiply(int a, int b) {return (a*b);}
+int substract(int a, int b) {return (a-b);} 
+
+void compute_result(int a, int b, int (*fctptr)(int, int)){
+    /*Define two simple functions: multiply(int, int) and subtract(int, int). 
+    Write a function called compute_result that takes three arguments: two integers
+    and a function pointer (which must match the signature of multiply or subtract). 
+    Inside compute_result, use the function pointer to perform the operation on the 
+    two integers and return the result. Use compute_result to call both multiply 
+    and subtract.*/
+    cout << "\nOperation : " <<  fctptr(a, b);
+
+    /* in main :
+    int (*fctptr)(int,int);
+    compute_result(3,5, multiply);
+    compute_result(3,5, substract);
+    */
+}
 
 int main(){
-    array_traversal();
+
     return 0;
 }
