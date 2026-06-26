@@ -349,7 +349,131 @@ void compute_result(int a, int b, int (*fctptr)(int, int)){
     */
 }
 
-int main(){
+// 21
+void print_constant_value(const int* ptr){
+    /*Write a function named print_constant_value that accepts a pointer to a 
+    constant integer (const int*). Inside the function, print the value pointed to. 
+    In main, attempt to call the function and then try to use the pointer inside the 
+    function to modify the pointed-to value. Observe and explain the resulting 
+    compilation error.*/
+    cout << *ptr;
 
+    // Try to modify value pointed by ptr
+    // *ptr = 10;
+    // getting error : expression must be a modifiable lvalue
+    // Although the value is not constant, the function will treat it as so. It can be accessed only as read only
+
+    /*In main :
+    int x = 9;
+    print_constant_value(&x);
+    x = 10;
+    print_constant_value(&x);
+    */
+}
+
+// 22
+void constant_pointer(){
+    /*Declare an integer variable x initialized to 5. Declare a constant pointer to 
+    an integer (int* const) named const_ptr and initialize it to point to x. Use the 
+    pointer to successfully change the value of x to 10. Then, declare a second 
+    integer y and attempt to make const_ptr point to y. Observe and explain the 
+    resulting compilation error.*/
+    int x = 5;
+    int* const const_ptr = &x;
+    *const_ptr = 10;
+    int y = 3;
+    // const_ptr = &y; // error :'const_ptr' : vous ne pouvez pas assigner une variable const
+    *const_ptr = 3; // ok
+    /*The const modifier is placed after the asterisk, making the pointer address itself immutable.
+    Thus, the pointer must always point to the address of x and cannot be reassigned to 
+    point to y. However, since the data type (int) is not constant, the value at the address 
+    (i.e., x) can be freely changed using the dereference operator (*const_ptr = 10).*/
+}
+
+// 23
+struct Rectangle {
+    int length {};
+    int width {};
+};
+
+void pointer_to_struct(){
+    /*Define a structure named Rectangle with two integer members: length and 
+    width. Declare a Rectangle variable, initialize its members, and then declare 
+    a pointer to that structure. Access and modify the structure members using the 
+    arrow operator (->). Print the final dimensions.*/
+    Rectangle rect {}; 
+    rect.length = 5;
+    rect.width = 4;
+    
+    struct Rectangle *ptr;
+    ptr = &rect;
+    ptr->length = 10; // -> accède aux membres de struct via le pointeur.
+    //Déréférence automatiquement et accède à la valeur pointée
+    cout << rect.length;
+}
+
+// 24
+void dynamic_allocation(){
+    /*Use the new operator to dynamically allocate memory for a single float 
+    variable on the heap. Store the address in a float pointer. Initialize the 
+    allocated memory to the value 3.14. Print the value, and then use the delete 
+    operator to deallocate the memory.*/
+    float* ptr = new float;
+    *ptr = 3.14;
+    cout << *ptr;
+    delete(ptr);
+    ptr = nullptr; // avoid dangling pointer
+}
+
+// 25 
+void dynamic_allocation_array(){
+    /*Use the new[] operator to dynamically allocate an integer array of size 8. 
+    Use a pointer to fill the array with the values 10, 20, 30, …, 80. Print all 
+    values using pointer arithmetic traversal. Finally, use the delete[] operator 
+    to correctly deallocate the entire array.*/
+    int* ptr = new int[8];
+
+    for(int i = 1; i < 9; i++){
+        *(ptr + i) = 10 * i ;
+    }
+    for(int i = 1; i < 9; i++){
+        cout << *(ptr + i) << " ";
+    }
+    delete[] ptr; // deallocate an array
+    ptr = nullptr;
+}
+
+// 26
+void array_of_pointers(){
+    /*Declare five individual integer variables (e.g., n1, n2, …). Declare an 
+    array of 5 integer pointers (int* array_of_ptrs[5]). Make each element in the 
+    array of pointers point to one of the five individual integer variables. Use 
+    the array of pointers to print all five integer values.*/
+    int n1 = 1, n2 = 2, n3 = 3, n4 = 4, n5 = 5;
+    int* array_of_ptrs[5];
+
+    array_of_ptrs[0] = &n1;
+    *(array_of_ptrs + 1) = &n2; // pareil
+    array_of_ptrs[2] = &n3;
+    array_of_ptrs[3] = &n4;
+    array_of_ptrs[4] = &n5;
+
+    for (int i = 0; i < 5; i++){
+        cout << *(*(array_of_ptrs + i)) << " "; 
+    }
+}
+
+// 27
+void find_first_occurrence(){
+    /*Write a function named find_first_occurrence that mimics a simplified strstr. 
+    It takes two char pointers: a source string and a target string (substring). It 
+    should search for the first occurrence of the target substring within the source 
+    string. If found, the function must return a pointer to the starting character of 
+    the match within the source string. If not found, return nullptr.*/
+    
+}
+
+int main(){
+    array_of_pointers();
     return 0;
 }
