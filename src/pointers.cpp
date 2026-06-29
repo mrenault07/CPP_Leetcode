@@ -510,7 +510,42 @@ const char* find_first_occurrence(const char* source, const char* target){
     */
 }
 
-int main(){
+// 28
+void leak_memory(){
+    /*Write a function named leak_memory that contains a simple for loop that runs 
+    100 times. Inside the loop, use new int to dynamically allocate memory for an 
+    integer, but do not use delete. In main, call this function and explain why 
+    this pattern leads to a memory leak. (Note: Running this in a real scenario 
+    will increase memory usage, but for the exercise, just understand the mechanism).*/
+    for(int i = 0; i < 100; i++){
+        int* ptr = new (nothrow) int;
+    }
+    // Lorsqu'on ne sait pas à l'avance la taille de variables (pouvant dépendre de données
+    // d'entrée de l'utilisateur par exemple), il est utile d'allouer dynamiquement de la mémoire
+    // pdt le runtime.
+    // Il faut utiliser les opérateurs new et delete. La mémoire allouée va être "prise" dans la heap
+    // memory, et non dans la stack (toute petite).
+    // Une fois allouée, la mémoire doit être libérée (delete) pour pouvoir être à nouveau utilisée.
+    // Si pas de delete :
+    // lorsque le pointeur sera détruit, le programme perdra l'adresse de la variable sans pouvoir 
+    // supprimer ce qu'il y a dedans (car ne sait plus où c'est). Cette mémoire ne pourra plus
+    // être utilisée.
 
+    // un autre exemple :
+    // int* ptr = new int;
+    // int val = 8;
+    // ptr = &val; // l'ancienne adresse de ptr est perdue = memory leak
+
+    // Pas de memory leak :
+    // int* ptr = new int;
+    // int val = 8;
+    // delete ptr; // on libère la mémoire de ptr
+    // ptr = &val; // l'ancienne adresse de ptr est perdue = memory leak
+
+    // NB : (nothrow) : retourne un nullptr si la mémoire n'a pas pu être allouée
+}
+
+int main(){
+    leak_memory();
     return 0;
 }
