@@ -545,7 +545,32 @@ void leak_memory(){
     // NB : (nothrow) : retourne un nullptr si la mémoire n'a pas pu être allouée
 }
 
+// 29
+int* resize_array(int* arr, int size, int new_size){
+    /*Dynamically allocate a small integer array (size 5) and initialize it. Write 
+    a function named resize_array that simulates reallocation by: 1) creating a new, 
+    larger array (size 10) on the heap, 2) using pointers to copy the contents of 
+    the old array to the new array, and 3) correctly deleting the old array. Return 
+    the pointer to the new array.*/
+    int* larger {new (nothrow)  int[new_size] {}};
+    if(larger){
+        for (int i = 0; i < size; i++){
+            *(larger + i) = *(arr + i);
+        }
+        delete[] arr;
+    }
+    return larger;
+
+    /*in main :
+    int* arr { new int[5] {1, 2, 3, 4, 5}};
+    int * larger = resize_array(arr, 5, 10);
+    for (int i = 0; i < 10; i++){
+        cout << *(larger + i) << " ";
+    }
+        */
+}
+
 int main(){
-    leak_memory();
+
     return 0;
 }
