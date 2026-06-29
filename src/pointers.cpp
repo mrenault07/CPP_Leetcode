@@ -464,16 +464,53 @@ void array_of_pointers(){
 }
 
 // 27
-void find_first_occurrence(){
+const char* find_first_occurrence(const char* source, const char* target){
     /*Write a function named find_first_occurrence that mimics a simplified strstr. 
     It takes two char pointers: a source string and a target string (substring). It 
     should search for the first occurrence of the target substring within the source 
     string. If found, the function must return a pointer to the starting character of 
     the match within the source string. If not found, return nullptr.*/
-    
+    const char* first_occurence = nullptr;
+    int target_size = 0;
+    const char *temp = target;
+    // Calcul de la taille de target.
+    // Utilisation d'un pointeur temporaire pour garder target qui pointe sur le premier char de la chaîne.
+    // Sinon, pointe à la fin sur la dernière valeur de la chaîne.
+    while(*temp != '\0'){
+        target_size+=1;
+        temp++;
+    }
+    while(*source != '\0'){
+        if(*source == *target){
+            first_occurence = source;
+            for (int i = 0; i < target_size; i++){
+                if (*(source + i) != *(target + i)){
+                    first_occurence = nullptr;
+                    break;
+                } 
+            }
+            if (first_occurence) return first_occurence; // Si on a une first _occurence, on sort de la boucle.
+        }
+        source++;
+    }
+    return nullptr;
+
+    /* in main :
+    const char* main_str = "programming in c++ is fun"; // obligé d'utiliser const char*, car
+    // un chaîne de char est stocké dans un espace mémoire en lecture seule (partie text segment de la mémoire),
+    // pour ne pas être modifiée
+    const char* sub_str = "lm+";
+    const char* first = find_first_occurrence(main_str, sub_str);
+    if (first){
+        cout << "Occurence starts at : " << first;
+    }
+    else{
+        cout << "No occurence found.";
+    }
+    */
 }
 
 int main(){
-    array_of_pointers();
+
     return 0;
 }
