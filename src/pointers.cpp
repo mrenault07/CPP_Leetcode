@@ -570,7 +570,38 @@ int* resize_array(int* arr, int size, int new_size){
         */
 }
 
-int main(){
+// 30
+struct Node {
+    int data;
+    Node* next;
+};
 
+void linked_list_node(){
+    /*Define a simple structure named Node containing an integer data member and a 
+    pointer named next that points to another Node structure (i.e., Node* next). 
+    Create three such nodes dynamically (n1, n2, n3). Link them sequentially using 
+    the next pointer (n1 -> n2 -> n3). Finally, traverse the small list using a 
+    temporary pointer and print all the data values.*/
+    Node* n1 = new Node {1, nullptr}; // Créé de la mémoire pour un Node sur la heap memory
+    Node* n2 = new Node {2, nullptr};
+    Node* n3 = new Node {3, nullptr};
+    n1 -> next = n2;
+    n2 -> next = n3;
+    n3 -> next = nullptr;
+
+    Node* temp = n1;
+
+    while (temp != nullptr){
+        cout << temp -> data << " ";
+        temp = temp -> next;
+    }
+    delete n1;
+    delete n2;
+    delete n3;
+
+}
+
+int main(){
+    linked_list_node();
     return 0;
 }
