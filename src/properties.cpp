@@ -19,11 +19,14 @@ public :
     int calculate_perimeter(){
         return 2 * length + 2 * width;
     }
-};
-
-int main(){
+    /*In main :
     Rectangle rect;
     cout << "Perimeter : " << rect.calculate_perimeter();
     cout << "\nArea : " << rect.calculate_area();
+    */
+};
+
+int main(){
+
     return 0;
 }
