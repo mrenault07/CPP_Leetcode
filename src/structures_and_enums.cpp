@@ -43,11 +43,11 @@ void get_bookInfo(){
 }
 
 // 3
-/*Declare an array capable of storing information for 3 Book structures. Write a program 
-to loop through the array, prompting the user to input the data (title, author, price) for
-each of the 3 books. Finally, loop through the array again to display the data for all 3 
-books.*/
 void array_of_structures(){
+    /*Declare an array capable of storing information for 3 Book structures. Write a program 
+    to loop through the array, prompting the user to input the data (title, author, price) for
+    each of the 3 books. Finally, loop through the array again to display the data for all 3 
+    books.*/
     array<Book, 3> books{};
     for (int i = 0; i < 3; i++){
         cout << "\nBook " << i + 1 << endl <<endl;
@@ -80,9 +80,8 @@ float calculate_total_price(array<Book, 3> books, int nb){
         sum += books[i].price;
     }
     return sum;
-}
-
-int main(){
+    
+    /*In main :
     array books {
         Book{"title1", "author1", 9.4},
         Book{"title2", "author2", 3.0},
@@ -90,5 +89,51 @@ int main(){
     };
     float total_price = calculate_total_price(books, 3);
     cout << "Total price : " << total_price << endl;
+    */
+}
+
+// 5
+struct DateOfBirth{
+    int day;
+    int month;
+    int year;
+};
+
+struct Student{
+    string name;
+    DateOfBirth birth;
+};
+
+void nested_structures(){
+    /*Define a structure DateOfBirth with three integer members: day, month, and year. Next, define
+    a structure Student that contains the student’s std::string name and a member of the type 
+    DateOfBirth. Create an instance of the Student structure and initialize its nested members, 
+    then display all the student’s information.*/
+    Student student = {
+        "Kitty", {5, 7, 1999}
+    };
+    cout << "Student : " << student.name << endl;
+    cout << "Birth : " << student.birth.day << '/' << student.birth.month << '/' << student.birth.year;
+}
+
+//6
+struct Rectangle{
+    int length, width;
+};
+
+void pointers_to_structures(){
+    /*Define a structure Rectangle with two float members: length and width. Declare a pointer to a 
+    Rectangle structure, dynamically allocate memory for it, and then use the pointer to read and 
+    display the rectangle’s dimensions.*/
+    Rectangle rect {6, 3};
+    Rectangle* ptr = new Rectangle;
+    ptr = &rect;
+    cout << "Dimension : " << ptr->length << 'x' << ptr->width;  
+    delete(ptr);
+    ptr = nullptr;
+}
+
+int main(){
+    pointers_to_structures();
     return 0;
 }
