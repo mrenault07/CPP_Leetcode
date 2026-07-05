@@ -68,10 +68,27 @@ void array_of_structures(){
         cout << "The price is : " << books[j].price << endl;
 
     }
+}
 
+// 4
+float calculate_total_price(array<Book, 3> books, int nb){
+    /*Building upon the array of Book structures, write a function named calculate_total_price. 
+    This function should accept the array of Book structures and the number of books as arguments. 
+    It must return a float representing the sum of the prices of all books in the array.*/
+    float sum = 0.0;
+    for (int i=0; i < nb; i++){
+        sum += books[i].price;
+    }
+    return sum;
 }
 
 int main(){
-    array_of_structures();
+    array books {
+        Book{"title1", "author1", 9.4},
+        Book{"title2", "author2", 3.0},
+        Book{"title3", "author3", 5.6}
+    };
+    float total_price = calculate_total_price(books, 3);
+    cout << "Total price : " << total_price << endl;
     return 0;
 }
